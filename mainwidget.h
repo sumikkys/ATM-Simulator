@@ -15,6 +15,14 @@ public:
     explicit MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
 
+    // 显示所查询的余额
+    void showBalance(unsigned int m_balance);
+
+
+signals:
+    void checkBalanceButtonClicked();
+    void quitButtonClicked();
+
 private:
     Ui::MainWidget *ui;
 };
