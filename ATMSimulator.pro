@@ -9,6 +9,10 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    account.cpp \
+    atmsystem.cpp \
+    changepasswordwidget.cpp \
+    depositwidget.cpp \
     loginwidget.cpp \
     main.cpp \
     mainwidget.cpp \
@@ -16,12 +20,18 @@ SOURCES += \
     withdrawwidget.cpp
 
 HEADERS += \
+    account.h \
+    atmsystem.h \
+    changepasswordwidget.h \
+    depositwidget.h \
     loginwidget.h \
     mainwidget.h \
     mainwindow.h \
     withdrawwidget.h
 
 FORMS += \
+    changepasswordwidget.ui \
+    depositwidget.ui \
     loginwidget.ui \
     mainwidget.ui \
     mainwindow.ui \
