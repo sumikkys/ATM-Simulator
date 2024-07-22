@@ -9,7 +9,7 @@
 #include "changepasswordwidget.h"
 #include <QMessageBox>
 #include <QString>
-
+#include <QSet>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),ui(new Ui::MainWindow),loginWidget(new LoginWidget(this)),
     mainWidget(new MainWidget(this)), depositWidget(new DepositWidget(this))
@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
     // lambda表达式处理前往修改密码界面信号
     connect(mainWidget, &MainWidget::toChangePWDButoonClicked, this , [this](){
         ui->stackedWidget->setCurrentWidget(changePasswordWidget);
+        changePasswordWidget->clearInformation();
     });
     // lambda表达式处理返回主界面信号
     connect(depositWidget,&DepositWidget::backButtonClicked, this, [this](){ // 存款界面返回
@@ -131,7 +132,34 @@ void MainWindow::handleWithdraw(){
 
 void MainWindow::handleChangePassword(){
     std::vector<QString> pwds = changePasswordWidget->getUserInput();
-    if(pwds[0] == pwds[1] == pwds[2]){
+    if(pwds[0].isEmpty() || pwds[1].isEmpty() || pwds[2].isEmpty()){
+        QMessageBox::warning(this, "修改密码失败", "您输入的密码不能为空！");
+        changePasswordWidget->clearInformation();
+    }else if(pwds[1] != pwds[2]){
+        QMessageBox::warning(this, "修改密码失败", "您输入的两次新密码不一致！");
+        changePasswordWidget->clearInformation();
+    }else if(pwds[1].size() < 6){
+        QMessageBox::warning(this, "修改密码失败", "您输入的新密码必须为6位！");
+        changePasswordWidget->clearInformation();
+
+    }else if([pwds]() -> bool{
+                   QSet<QString> charSet;
+                   for(const QChar& ch : pwds[1]){
+                       charSet.insert(ch);
+                   }
+                   return charSet.size()== 1;
+               }()){ //检查新密码是否6位完全相同 通过将所有字符添加进集合 利用集合的互异性判断是否完全相同
+        QMessageBox::warning(this, "修改密码失败", "密码6位不能完全相同！");
+        changePasswordWidget->clearInformation();
+
+    }else if (atm.changePassword(pwds[0],pwds[1])){
+        QMessageBox::information(this, "修改密码成功", "您已成功修改密码");
+        ui->stackedWidget->setCurrentWidget(loginWidget);
+        loginWidget->clearInformation();
+
+    }else{
+        QMessageBox::warning(this, "修改密码失败", "您输入的旧密码错误！");
+        changePasswordWidget->clearInformation();
 
     }
 

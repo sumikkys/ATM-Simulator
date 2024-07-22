@@ -14,10 +14,7 @@ public:
     // 构造函数
     Account();
 
-    Account(const QString& m_number, const QString& m_password, const unsigned int m_balance);
-
-    // 登陆后初始化函数
-    // void setAccount(const QString& m_number, const QString& m_password, const unsigned int m_balance);
+    Account(const QString& m_number, const QString& m_password, unsigned int m_balance);
 
     bool login(const QString& m_number, const QString& m_password);
     // 获取卡号

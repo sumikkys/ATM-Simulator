@@ -11,6 +11,7 @@ QString AtmSystem::checkCardNumber(){
     return account.getCardNumber();
 }
 
+
 unsigned int AtmSystem::checkBalance(){
     return account.getBalance();
 }
@@ -22,3 +23,8 @@ void AtmSystem::deposit(unsigned int amount){
 void AtmSystem::withdraw(unsigned int amount){
     account.withdraw(amount);
 }
+
+bool AtmSystem::changePassword(const QString& oldPassword, const QString& newPassword){
+    return account.changePassword(oldPassword,newPassword);
+}
+
