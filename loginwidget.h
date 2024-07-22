@@ -25,6 +25,9 @@ signals:
     // 当登陆按钮点击时loginWidget广播的信号
     void loginButtonClicked();
 
+    // 当开卡/销户点击时广播信号
+    void toCreDesBtnClicked();
+
 private:
     Ui::LoginWidget *ui;
 };

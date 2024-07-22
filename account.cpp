@@ -5,23 +5,42 @@ Account::Account() : cardNumber(),password(),balance(){}
 Account::Account(const QString& m_number, const QString& m_password, unsigned int m_balance)
     : cardNumber(m_number), password(m_password), balance(m_balance){}
 
+// 哈希密码
+QString Account::hashPassword(const QString& password) const {
+    QByteArray byteArray = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
+    return QString(byteArray.toHex());
+}
+
+
 // 登陆
-bool Account::login(const QString& m_number, const QString& m_password){
-    if(m_number == cardNumber && m_password == password){
+bool Account::login(const QString& m_number, const QString& m_password) const{
+    if(m_number == cardNumber && hashPassword(m_password) == password){
         return true;
     }else{
         return false;
     }
 }
 
+void Account::setAccount(const QString& m_number, const QString& m_password, unsigned int m_balance){
+    cardNumber = m_number;
+    password = hashPassword(m_password);
+    balance = m_balance;
+}
+
+
 // 返回卡号
-QString Account::getCardNumber(){
+QString Account::getCardNumber() const{
     return cardNumber;
 }
 
 // 返回余额
-unsigned int Account::getBalance(){
+unsigned int Account::getBalance() const{
     return balance;
+}
+
+// 获取哈希后的密码
+QString Account::getPassword() const{
+    return password;
 }
 
 // 存款
@@ -36,8 +55,8 @@ void Account::withdraw(unsigned int amount){
 
 // 修改密码
 bool Account::changePassword(const QString& oldPassword, const QString& newPassword){
-    if(oldPassword == password){
-        password = newPassword;
+    if(hashPassword(oldPassword) == password){
+        password = hashPassword(newPassword);
         return true;
     }else{
         return false;

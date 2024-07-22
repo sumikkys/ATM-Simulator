@@ -12,6 +12,8 @@ LoginWidget::LoginWidget(QWidget *parent)
 
     //点击登陆按钮时广播信号
     connect(ui->loginButton,&QPushButton::clicked,this,&LoginWidget::loginButtonClicked);
+    //点击开卡/销户按钮时广播信号
+    connect(ui->toCreDesBtn,&QPushButton::clicked,this,&LoginWidget::toCreDesBtnClicked);
 
     //限制卡号输入框输入格式为16位纯数字
     auto numberRegex = QRegularExpression("[0-9]{16}");

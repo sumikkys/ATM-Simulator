@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     account.cpp \
+    accountcredeswidget.cpp \
     atmsystem.cpp \
     changepasswordwidget.cpp \
     depositwidget.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     account.h \
+    accountcredeswidget.h \
     atmsystem.h \
     changepasswordwidget.h \
     depositwidget.h \
@@ -30,6 +32,7 @@ HEADERS += \
     withdrawwidget.h
 
 FORMS += \
+    accountcredeswidget.ui \
     changepasswordwidget.ui \
     depositwidget.ui \
     loginwidget.ui \

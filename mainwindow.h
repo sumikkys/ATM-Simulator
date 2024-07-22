@@ -10,6 +10,7 @@
 #include "depositwidget.h"
 #include "withdrawwidget.h"
 #include "changepasswordwidget.h"
+#include "accountcredeswidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,6 +36,10 @@ public slots:
     void handleWithdraw();
     // 修改密码槽函数
     void handleChangePassword();
+    // 开卡槽函数
+    void handleCreate();
+    // 销户槽函数
+    void handleDestory();
 
 
 
@@ -45,6 +50,7 @@ private:
     DepositWidget* depositWidget;
     WithdrawWidget* withdrawWidget;
     ChangePasswordWidget* changePasswordWidget;
+    AccountCreDesWidget* accountCreDesWidget;
 
     AtmSystem atm;
 };

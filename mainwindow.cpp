@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "account.h"
 #include "atmsystem.h"
 #include "loginwidget.h"
 #include "mainwidget.h"
@@ -13,10 +12,21 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),ui(new Ui::MainWindow),loginWidget(new LoginWidget(this)),
     mainWidget(new MainWidget(this)), depositWidget(new DepositWidget(this))
-    ,withdrawWidget(new WithdrawWidget(this)), changePasswordWidget(new ChangePasswordWidget(this)), atm()
+    ,withdrawWidget(new WithdrawWidget(this)), changePasswordWidget(new ChangePasswordWidget(this)), accountCreDesWidget(new AccountCreDesWidget(this)), atm()
 {
     ui->setupUi(this);
 
+    if(!QFile::exists("data.txt")){ // data.txt不存在时设置初始账号
+        if(atm.recoverDefaultAccount()){
+            QMessageBox::warning(this, "恢复默认", "已恢复默认账号");
+        }
+    }
+
+
+    if(!atm.init()){ // 初始化atm系统
+        QMessageBox::warning(this, "错误", "初始化读取文件时出错");
+        QApplication::quit();
+    }
 
     // 将各个Widget添加到stackedWidget
     ui->stackedWidget->addWidget(loginWidget);
@@ -24,7 +34,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->addWidget(depositWidget);
     ui->stackedWidget->addWidget(withdrawWidget);
     ui->stackedWidget->addWidget(changePasswordWidget);
+    ui->stackedWidget->addWidget(accountCreDesWidget);
     ui->stackedWidget->setCurrentWidget(loginWidget);
+
 
 
 
@@ -37,6 +49,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(withdrawWidget, &WithdrawWidget::withdrawButtonClicked, this, &MainWindow::handleWithdraw);
     // 连接修改密码信号与修改密码槽函数
     connect(changePasswordWidget, &ChangePasswordWidget::changePWDBtnClicked, this , &MainWindow::handleChangePassword);
+    // 连接开卡信号与开卡槽函数
+    connect(accountCreDesWidget, &AccountCreDesWidget::createButtonClicked, this, &MainWindow::handleCreate);
+    // 连接销户信号与销户槽函数
+    connect(accountCreDesWidget, &AccountCreDesWidget::destoryButtonClicked, this , &MainWindow::handleDestory);
     // lambda表达式处理查询余额信号
     connect(mainWidget, &MainWidget::checkBalanceButtonClicked, this, [this](){
         mainWidget->showBalance(atm.checkBalance());
@@ -62,6 +78,11 @@ MainWindow::MainWindow(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(changePasswordWidget);
         changePasswordWidget->clearInformation();
     });
+    // lambda表达式处理前往开卡销户界面信号
+    connect(loginWidget, &LoginWidget::toCreDesBtnClicked, this , [this](){
+        ui->stackedWidget->setCurrentWidget(accountCreDesWidget);
+        accountCreDesWidget->clearInformation();
+    });
     // lambda表达式处理返回主界面信号
     connect(depositWidget,&DepositWidget::backButtonClicked, this, [this](){ // 存款界面返回
         ui->stackedWidget->setCurrentWidget(mainWidget);
@@ -73,6 +94,10 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(changePasswordWidget, &ChangePasswordWidget::backButtonClicked, this, [this](){ // 修改密码界面返回
         ui->stackedWidget->setCurrentWidget(mainWidget);
+    } );
+    connect(accountCreDesWidget, &AccountCreDesWidget::backButtonClicked, this, [this](){ // 修改密码界面返回
+        ui->stackedWidget->setCurrentWidget(loginWidget);
+        loginWidget->clearInformation();
     } );
 
 }
@@ -165,4 +190,11 @@ void MainWindow::handleChangePassword(){
 
 }
 
+void MainWindow::handleCreate(){
+
+}
+
+void MainWindow::handleDestory(){
+
+}
 
