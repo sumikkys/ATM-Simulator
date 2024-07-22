@@ -38,7 +38,8 @@ constexpr auto qt_meta_stringdata_CLASSMainWidgetENDCLASS = QtMocHelpers::string
     "MainWidget",
     "checkBalanceButtonClicked",
     "",
-    "quitButtonClicked"
+    "quitButtonClicked",
+    "toDepositButtonClicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -51,18 +52,20 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWidgetENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   26,    2, 0x06,    1 /* Public */,
-       3,    0,   27,    2, 0x06,    2 /* Public */,
+       1,    0,   32,    2, 0x06,    1 /* Public */,
+       3,    0,   33,    2, 0x06,    2 /* Public */,
+       4,    0,   34,    2, 0x06,    3 /* Public */,
 
  // signals: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -81,6 +84,8 @@ Q_CONSTINIT const QMetaObject MainWidget::staticMetaObject = { {
         // method 'checkBalanceButtonClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'quitButtonClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'toDepositButtonClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -94,6 +99,7 @@ void MainWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->checkBalanceButtonClicked(); break;
         case 1: _t->quitButtonClicked(); break;
+        case 2: _t->toDepositButtonClicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -109,6 +115,13 @@ void MainWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             using _t = void (MainWidget::*)();
             if (_t _q_method = &MainWidget::quitButtonClicked; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 1;
+                return;
+            }
+        }
+        {
+            using _t = void (MainWidget::*)();
+            if (_t _q_method = &MainWidget::toDepositButtonClicked; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 2;
                 return;
             }
         }
@@ -135,13 +148,13 @@ int MainWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
@@ -156,5 +169,11 @@ void MainWidget::checkBalanceButtonClicked()
 void MainWidget::quitButtonClicked()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+}
+
+// SIGNAL 2
+void MainWidget::toDepositButtonClicked()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
 }
 QT_WARNING_POP

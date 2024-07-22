@@ -32,9 +32,9 @@ public:
     QLabel *balanceLabel;
     QPushButton *checkBalanceButton;
     QHBoxLayout *horizontalLayout;
-    QPushButton *depositButton;
-    QPushButton *withdrawButton;
-    QPushButton *changePasswordButton;
+    QPushButton *toDepositButton;
+    QPushButton *toWithdrawButton;
+    QPushButton *toChangePasswordButton;
     QPushButton *quitButton;
 
     void setupUi(QWidget *MainWidget)
@@ -102,29 +102,29 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
         horizontalLayout->setContentsMargins(12, 10, 12, 15);
-        depositButton = new QPushButton(MainWidget);
-        depositButton->setObjectName("depositButton");
+        toDepositButton = new QPushButton(MainWidget);
+        toDepositButton->setObjectName("toDepositButton");
         QSizePolicy sizePolicy1(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Minimum);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(depositButton->sizePolicy().hasHeightForWidth());
-        depositButton->setSizePolicy(sizePolicy1);
+        sizePolicy1.setHeightForWidth(toDepositButton->sizePolicy().hasHeightForWidth());
+        toDepositButton->setSizePolicy(sizePolicy1);
 
-        horizontalLayout->addWidget(depositButton);
+        horizontalLayout->addWidget(toDepositButton);
 
-        withdrawButton = new QPushButton(MainWidget);
-        withdrawButton->setObjectName("withdrawButton");
-        sizePolicy1.setHeightForWidth(withdrawButton->sizePolicy().hasHeightForWidth());
-        withdrawButton->setSizePolicy(sizePolicy1);
+        toWithdrawButton = new QPushButton(MainWidget);
+        toWithdrawButton->setObjectName("toWithdrawButton");
+        sizePolicy1.setHeightForWidth(toWithdrawButton->sizePolicy().hasHeightForWidth());
+        toWithdrawButton->setSizePolicy(sizePolicy1);
 
-        horizontalLayout->addWidget(withdrawButton);
+        horizontalLayout->addWidget(toWithdrawButton);
 
-        changePasswordButton = new QPushButton(MainWidget);
-        changePasswordButton->setObjectName("changePasswordButton");
-        sizePolicy1.setHeightForWidth(changePasswordButton->sizePolicy().hasHeightForWidth());
-        changePasswordButton->setSizePolicy(sizePolicy1);
+        toChangePasswordButton = new QPushButton(MainWidget);
+        toChangePasswordButton->setObjectName("toChangePasswordButton");
+        sizePolicy1.setHeightForWidth(toChangePasswordButton->sizePolicy().hasHeightForWidth());
+        toChangePasswordButton->setSizePolicy(sizePolicy1);
 
-        horizontalLayout->addWidget(changePasswordButton);
+        horizontalLayout->addWidget(toChangePasswordButton);
 
         quitButton = new QPushButton(MainWidget);
         quitButton->setObjectName("quitButton");
@@ -158,9 +158,9 @@ public:
         label_4->setText(QCoreApplication::translate("MainWidget", "\350\264\246\346\210\267\344\275\231\351\242\235\357\274\232", nullptr));
         balanceLabel->setText(QCoreApplication::translate("MainWidget", "--- \345\205\203", nullptr));
         checkBalanceButton->setText(QCoreApplication::translate("MainWidget", "\346\237\245\350\257\242\344\275\231\351\242\235", nullptr));
-        depositButton->setText(QCoreApplication::translate("MainWidget", "   \345\255\230\346\254\276   ", nullptr));
-        withdrawButton->setText(QCoreApplication::translate("MainWidget", "   \345\217\226\346\254\276   ", nullptr));
-        changePasswordButton->setText(QCoreApplication::translate("MainWidget", "\344\277\256\346\224\271\345\257\206\347\240\201", nullptr));
+        toDepositButton->setText(QCoreApplication::translate("MainWidget", "   \345\255\230\346\254\276   ", nullptr));
+        toWithdrawButton->setText(QCoreApplication::translate("MainWidget", "   \345\217\226\346\254\276   ", nullptr));
+        toChangePasswordButton->setText(QCoreApplication::translate("MainWidget", "\344\277\256\346\224\271\345\257\206\347\240\201", nullptr));
         quitButton->setText(QCoreApplication::translate("MainWidget", "\351\200\200\345\207\272\347\231\273\345\275\225", nullptr));
     } // retranslateUi
 

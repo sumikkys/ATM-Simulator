@@ -38,11 +38,9 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "MainWindow",
     "handleLogin",
     "",
-    "handleCheckBalance",
     "handleDeposit",
     "handleWithdraw",
-    "handleChangePassword",
-    "handleQuit"
+    "handleChangePassword"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -55,7 +53,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,16 +61,12 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   50,    2, 0x0a,    1 /* Public */,
-       3,    0,   51,    2, 0x0a,    2 /* Public */,
-       4,    0,   52,    2, 0x0a,    3 /* Public */,
-       5,    0,   53,    2, 0x0a,    4 /* Public */,
-       6,    0,   54,    2, 0x0a,    5 /* Public */,
-       7,    0,   55,    2, 0x0a,    6 /* Public */,
+       1,    0,   38,    2, 0x0a,    1 /* Public */,
+       3,    0,   39,    2, 0x0a,    2 /* Public */,
+       4,    0,   40,    2, 0x0a,    3 /* Public */,
+       5,    0,   41,    2, 0x0a,    4 /* Public */,
 
  // slots: parameters
-    QMetaType::Void,
-    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -92,15 +86,11 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
         // method 'handleLogin'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'handleCheckBalance'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'handleDeposit'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'handleWithdraw'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'handleChangePassword'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'handleQuit'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -113,11 +103,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         (void)_t;
         switch (_id) {
         case 0: _t->handleLogin(); break;
-        case 1: _t->handleCheckBalance(); break;
-        case 2: _t->handleDeposit(); break;
-        case 3: _t->handleWithdraw(); break;
-        case 4: _t->handleChangePassword(); break;
-        case 5: _t->handleQuit(); break;
+        case 1: _t->handleDeposit(); break;
+        case 2: _t->handleWithdraw(); break;
+        case 3: _t->handleChangePassword(); break;
         default: ;
         }
     }
@@ -143,13 +131,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 4)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 6;
+        _id -= 4;
     }
     return _id;
 }

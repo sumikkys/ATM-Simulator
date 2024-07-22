@@ -18,10 +18,10 @@ public:
     unsigned int checkBalance();
 
     // 取款
-    bool withdraw(unsigned int amount);
+    void withdraw(unsigned int amount);
 
     // 存款
-    bool deposit(unsigned int amount);
+    void deposit(unsigned int amount);
 
     // 修改密码
     bool changePassword(const QString& oldPassword, const QString& newPassword);

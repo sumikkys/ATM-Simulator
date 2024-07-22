@@ -10,3 +10,7 @@ bool AtmSystem::login(const QString& cardNumber, const QString& password){
 unsigned int AtmSystem::checkBalance(){
     return account.getBalance();
 }
+
+void AtmSystem::deposit(unsigned int amount){
+    account.deposit(amount);
+}

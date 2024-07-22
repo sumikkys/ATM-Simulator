@@ -17,17 +17,17 @@ public:
     Account(const QString& m_number, const QString& m_password, const unsigned int m_balance);
 
     // 登陆后初始化函数
-    void setAccount(const QString& m_number, const QString& m_password, const unsigned int m_balance);
+    // void setAccount(const QString& m_number, const QString& m_password, const unsigned int m_balance);
 
     bool login(const QString& m_number, const QString& m_password);
     // 获取余额
     unsigned int getBalance();
 
     // 取款
-    bool withdraw(unsigned int amount);
+    void withdraw(unsigned int amount);
 
     // 存款
-    bool deposit(unsigned int amount);
+    void deposit(unsigned int amount);
 
     // 修改密码
     bool changePassword(const QString& oldPassword, const QString& newPassword);

@@ -9,6 +9,7 @@ MainWidget::MainWidget(QWidget *parent)
 
     connect(ui->checkBalanceButton,&QPushButton::clicked,this,&MainWidget::checkBalanceButtonClicked);
     connect(ui->quitButton,&QPushButton::clicked,this,&MainWidget::quitButtonClicked);
+    connect(ui->toDepositButton,&QPushButton::clicked,this,&MainWidget::toDepositButtonClicked);
 }
 
 MainWidget::~MainWidget()

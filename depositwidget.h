@@ -15,6 +15,15 @@ public:
     explicit DepositWidget(QWidget *parent = nullptr);
     ~DepositWidget();
 
+    // 在存款界面更新账户余额
+    void updateBalance(unsigned int balance);
+
+    QString getDepositAmount();
+
+signals:
+    void backButtonClicked();
+    void depositButtonClicked();
+
 private:
     Ui::DepositWidget *ui;
 };

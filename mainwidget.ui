@@ -109,7 +109,7 @@
       <number>15</number>
      </property>
      <item>
-      <widget class="QPushButton" name="depositButton">
+      <widget class="QPushButton" name="toDepositButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -122,7 +122,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="withdrawButton">
+      <widget class="QPushButton" name="toWithdrawButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -135,7 +135,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="changePasswordButton">
+      <widget class="QPushButton" name="toChangePasswordButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
          <horstretch>0</horstretch>

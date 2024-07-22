@@ -22,6 +22,7 @@ public:
 signals:
     void checkBalanceButtonClicked();
     void quitButtonClicked();
+    void toDepositButtonClicked();
 
 private:
     Ui::MainWidget *ui;
