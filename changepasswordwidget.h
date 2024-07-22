@@ -15,6 +15,12 @@ public:
     explicit ChangePasswordWidget(QWidget *parent = nullptr);
     ~ChangePasswordWidget();
 
+    std::vector<QString> getUserInput();
+
+signals:
+    void backButtonClicked();
+    void changePWDBtnClicked();
+
 private:
     Ui::ChangePasswordWidget *ui;
 };

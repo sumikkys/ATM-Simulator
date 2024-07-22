@@ -20,6 +20,9 @@ public:
     // void setAccount(const QString& m_number, const QString& m_password, const unsigned int m_balance);
 
     bool login(const QString& m_number, const QString& m_password);
+    // 获取卡号
+    QString getCardNumber();
+
     // 获取余额
     unsigned int getBalance();
 

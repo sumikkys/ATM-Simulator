@@ -29,40 +29,50 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // 连接从子Widget得到的信号与槽函数
-    connect(loginWidget,&LoginWidget::loginButtonClicked,this,&MainWindow::handleLogin);
+    connect(loginWidget, &LoginWidget::loginButtonClicked, this, &MainWindow::handleLogin);
+    // 连接存款信号与存款槽函数
+    connect(depositWidget, &DepositWidget::depositButtonClicked, this, &MainWindow::handleDeposit);
+    // 连接取款信号与取款槽函数
+    connect(withdrawWidget, &WithdrawWidget::withdrawButtonClicked, this, &MainWindow::handleWithdraw);
+    // 连接修改密码信号与修改密码槽函数
+    connect(changePasswordWidget, &ChangePasswordWidget::changePWDBtnClicked, this , &MainWindow::handleChangePassword);
     // lambda表达式处理查询余额信号
-    connect(mainWidget,&MainWidget::checkBalanceButtonClicked,this,[this](){
+    connect(mainWidget, &MainWidget::checkBalanceButtonClicked, this, [this](){
         mainWidget->showBalance(atm.checkBalance());
     });
     // lambda表达式处理退出登录信号
-    connect(mainWidget,&MainWidget::quitButtonClicked,this,[this](){
+    connect(mainWidget, &MainWidget::quitButtonClicked, this, [this](){
         ui->stackedWidget->setCurrentWidget(loginWidget);
         loginWidget->clearInformation();
     });
     // lambda表达式处理前往存款界面信号
-    connect(mainWidget,&MainWidget::toDepositButtonClicked,this,[this](){
+    connect(mainWidget, &MainWidget::toDepositButtonClicked, this, [this](){
         ui->stackedWidget->setCurrentWidget(depositWidget);
         depositWidget->updateBalance(atm.checkBalance());
 
     });
     // lambda表达式处理前往取款界面信号
-    connect(mainWidget,&MainWidget::toWithdrawButtonClicked,this,[this](){
+    connect(mainWidget, &MainWidget::toWithdrawButtonClicked, this, [this](){
         ui->stackedWidget->setCurrentWidget(withdrawWidget);
         withdrawWidget->updateBalance(atm.checkBalance());
     });
+    // lambda表达式处理前往修改密码界面信号
+    connect(mainWidget, &MainWidget::toChangePWDButoonClicked, this , [this](){
+        ui->stackedWidget->setCurrentWidget(changePasswordWidget);
+    });
     // lambda表达式处理返回主界面信号
-    connect(depositWidget,&DepositWidget::backButtonClicked,this,[this](){
+    connect(depositWidget,&DepositWidget::backButtonClicked, this, [this](){ // 存款界面返回
         ui->stackedWidget->setCurrentWidget(mainWidget);
         mainWidget->showBalance(atm.checkBalance());
     });
-    connect(withdrawWidget,&WithdrawWidget::backButtonClicked,this,[this](){
+    connect(withdrawWidget, &WithdrawWidget::backButtonClicked, this, [this](){ // 取款界面返回
         ui->stackedWidget->setCurrentWidget(mainWidget);
         mainWidget->showBalance(atm.checkBalance());
     });
-    // 连接存款信号与存款槽函数
-    connect(depositWidget,&DepositWidget::depositButtonClicked,this,&MainWindow::handleDeposit);
-    // 连接取款信号与取款槽函数
-    connect(withdrawWidget,&WithdrawWidget::withdrawButtonClicked,this,&MainWindow::handleWithdraw);
+    connect(changePasswordWidget, &ChangePasswordWidget::backButtonClicked, this, [this](){ // 修改密码界面返回
+        ui->stackedWidget->setCurrentWidget(mainWidget);
+    } );
+
 }
 
 MainWindow::~MainWindow()
@@ -87,12 +97,12 @@ void MainWindow::handleLogin(){
 
 void MainWindow::handleDeposit(){
     QString line = depositWidget->getDepositAmount();
-    if(line.isEmpty()){
+    if(line.isEmpty()){ // 检验是否为空
         QMessageBox::warning(this, "存款失败", "存款金额不能为空！");
-    }else if(line.contains(".")){
+    }else if(line.contains(".")){ //分开处理带.和不带.的情况
         unsigned int intPart = line.split(".").first().toUInt();
         unsigned int floatPart = line.split(".").last().toUInt();
-        if(line.split(".").last().size()<2) floatPart *= 10;
+        if(line.split(".").last().size()<2) floatPart *= 10; // 判断小数部分的位数
         unsigned int finalAmount = intPart*100+floatPart;
         atm.deposit(finalAmount);
         QMessageBox::information(this, "存款成功", "您已存款"+line+" 元。");
@@ -110,7 +120,7 @@ void MainWindow::handleDeposit(){
 void MainWindow::handleWithdraw(){
     QString line = withdrawWidget->getWithdrawAmount();
     unsigned int finalAmount = line.toUInt()*100;
-    if(finalAmount > atm.checkBalance()){
+    if(finalAmount > atm.checkBalance()){ // 避免透支
         QMessageBox::warning(this, "取款失败", "您的账户余额不足！");
     }else{
         atm.withdraw(finalAmount);
@@ -119,6 +129,12 @@ void MainWindow::handleWithdraw(){
     }
 }
 
-void MainWindow::handleChangePassword(){}
+void MainWindow::handleChangePassword(){
+    std::vector<QString> pwds = changePasswordWidget->getUserInput();
+    if(pwds[0] == pwds[1] == pwds[2]){
+
+    }
+
+}
 
 

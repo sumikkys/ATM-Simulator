@@ -19,6 +19,10 @@ bool Account::login(const QString& m_number, const QString& m_password){
     }
 }
 
+QString Account::getCardNumber(){
+    return cardNumber;
+}
+
 unsigned int Account::getBalance(){
     return balance;
 }

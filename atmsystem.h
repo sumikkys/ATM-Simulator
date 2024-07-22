@@ -14,6 +14,9 @@ public:
     // 登陆 登陆成功时返回true给LoginWidget::handleLogin函数 并创建account
     bool login(const QString& cardNumber, const QString& password);
 
+    // 获取卡号
+    QString checkCardNumber();
+
     // 查询余额
     unsigned int checkBalance();
 

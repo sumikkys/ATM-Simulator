@@ -7,6 +7,10 @@ bool AtmSystem::login(const QString& cardNumber, const QString& password){
     return account.login(cardNumber,password);
 }
 
+QString AtmSystem::checkCardNumber(){
+    return account.getCardNumber();
+}
+
 unsigned int AtmSystem::checkBalance(){
     return account.getBalance();
 }

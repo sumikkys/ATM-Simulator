@@ -7,7 +7,7 @@ WithdrawWidget::WithdrawWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // 按钮点击使广播信号
+    // 按钮点击时广播信号
     connect(ui->backButton,&QPushButton::clicked,this,&WithdrawWidget::backButtonClicked);
     connect(ui->withdrawButton,&QPushButton::clicked,this,&WithdrawWidget::withdrawButtonClicked);
 
