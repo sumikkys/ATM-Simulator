@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+
     // 将各个Widget添加到stackedWidget
     ui->stackedWidget->addWidget(loginWidget);
     ui->stackedWidget->addWidget(mainWidget);
