@@ -7,9 +7,12 @@ MainWidget::MainWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->checkBalanceButton,&QPushButton::clicked,this,&MainWidget::checkBalanceButtonClicked);
-    connect(ui->quitButton,&QPushButton::clicked,this,&MainWidget::quitButtonClicked);
-    connect(ui->toDepositButton,&QPushButton::clicked,this,&MainWidget::toDepositButtonClicked);
+    // 广播点击按钮信号
+    connect(ui->checkBalanceButton, &QPushButton::clicked, this, &MainWidget::checkBalanceButtonClicked);
+    connect(ui->quitButton, &QPushButton::clicked, this, &MainWidget::quitButtonClicked);
+    connect(ui->toDepositButton, &QPushButton::clicked, this, &MainWidget::toDepositButtonClicked);
+    connect(ui->toWithdrawButton, &QPushButton::clicked, this, &MainWidget::toWithdrawButtonClicked);
+    connect(ui->toChangePasswordButton, &QPushButton::clicked, this, &MainWidget::toChangePWDButoonClicked);
 }
 
 MainWidget::~MainWidget()

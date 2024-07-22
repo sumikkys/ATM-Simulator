@@ -39,7 +39,9 @@ constexpr auto qt_meta_stringdata_CLASSMainWidgetENDCLASS = QtMocHelpers::string
     "checkBalanceButtonClicked",
     "",
     "quitButtonClicked",
-    "toDepositButtonClicked"
+    "toDepositButtonClicked",
+    "toWithdrawButtonClicked",
+    "toChangePWDButoonClicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -52,19 +54,23 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWidgetENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   32,    2, 0x06,    1 /* Public */,
-       3,    0,   33,    2, 0x06,    2 /* Public */,
-       4,    0,   34,    2, 0x06,    3 /* Public */,
+       1,    0,   44,    2, 0x06,    1 /* Public */,
+       3,    0,   45,    2, 0x06,    2 /* Public */,
+       4,    0,   46,    2, 0x06,    3 /* Public */,
+       5,    0,   47,    2, 0x06,    4 /* Public */,
+       6,    0,   48,    2, 0x06,    5 /* Public */,
 
  // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -86,6 +92,10 @@ Q_CONSTINIT const QMetaObject MainWidget::staticMetaObject = { {
         // method 'quitButtonClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'toDepositButtonClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'toWithdrawButtonClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'toChangePWDButoonClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -100,6 +110,8 @@ void MainWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->checkBalanceButtonClicked(); break;
         case 1: _t->quitButtonClicked(); break;
         case 2: _t->toDepositButtonClicked(); break;
+        case 3: _t->toWithdrawButtonClicked(); break;
+        case 4: _t->toChangePWDButoonClicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -122,6 +134,20 @@ void MainWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             using _t = void (MainWidget::*)();
             if (_t _q_method = &MainWidget::toDepositButtonClicked; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 2;
+                return;
+            }
+        }
+        {
+            using _t = void (MainWidget::*)();
+            if (_t _q_method = &MainWidget::toWithdrawButtonClicked; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 3;
+                return;
+            }
+        }
+        {
+            using _t = void (MainWidget::*)();
+            if (_t _q_method = &MainWidget::toChangePWDButoonClicked; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 4;
                 return;
             }
         }
@@ -148,13 +174,13 @@ int MainWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 5)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 3;
+        _id -= 5;
     }
     return _id;
 }
@@ -175,5 +201,17 @@ void MainWidget::quitButtonClicked()
 void MainWidget::toDepositButtonClicked()
 {
     QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
+}
+
+// SIGNAL 3
+void MainWidget::toWithdrawButtonClicked()
+{
+    QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
+}
+
+// SIGNAL 4
+void MainWidget::toChangePWDButoonClicked()
+{
+    QMetaObject::activate(this, &staticMetaObject, 4, nullptr);
 }
 QT_WARNING_POP

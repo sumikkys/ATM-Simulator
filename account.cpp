@@ -26,3 +26,7 @@ unsigned int Account::getBalance(){
 void Account::deposit(unsigned int amount){
     this->balance += amount;
 }
+
+void Account::withdraw(unsigned int amount){
+    this->balance -= amount;
+}

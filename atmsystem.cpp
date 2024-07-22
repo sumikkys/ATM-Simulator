@@ -14,3 +14,7 @@ unsigned int AtmSystem::checkBalance(){
 void AtmSystem::deposit(unsigned int amount){
     account.deposit(amount);
 }
+
+void AtmSystem::withdraw(unsigned int amount){
+    account.withdraw(amount);
+}

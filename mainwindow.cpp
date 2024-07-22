@@ -45,13 +45,24 @@ MainWindow::MainWindow(QWidget *parent)
         depositWidget->updateBalance(atm.checkBalance());
 
     });
+    // lambda表达式处理前往取款界面信号
+    connect(mainWidget,&MainWidget::toWithdrawButtonClicked,this,[this](){
+        ui->stackedWidget->setCurrentWidget(withdrawWidget);
+        withdrawWidget->updateBalance(atm.checkBalance());
+    });
     // lambda表达式处理返回主界面信号
     connect(depositWidget,&DepositWidget::backButtonClicked,this,[this](){
         ui->stackedWidget->setCurrentWidget(mainWidget);
         mainWidget->showBalance(atm.checkBalance());
     });
+    connect(withdrawWidget,&WithdrawWidget::backButtonClicked,this,[this](){
+        ui->stackedWidget->setCurrentWidget(mainWidget);
+        mainWidget->showBalance(atm.checkBalance());
+    });
     // 连接存款信号与存款槽函数
     connect(depositWidget,&DepositWidget::depositButtonClicked,this,&MainWindow::handleDeposit);
+    // 连接取款信号与取款槽函数
+    connect(withdrawWidget,&WithdrawWidget::withdrawButtonClicked,this,&MainWindow::handleWithdraw);
 }
 
 MainWindow::~MainWindow()
@@ -96,7 +107,17 @@ void MainWindow::handleDeposit(){
 
 }
 
-void MainWindow::handleWithdraw(){}
+void MainWindow::handleWithdraw(){
+    QString line = withdrawWidget->getWithdrawAmount();
+    unsigned int finalAmount = line.toUInt()*100;
+    if(finalAmount > atm.checkBalance()){
+        QMessageBox::warning(this, "取款失败", "您的账户余额不足！");
+    }else{
+        atm.withdraw(finalAmount);
+        QMessageBox::information(this, "取款成功", "您已取款"+line+" 元。");
+        withdrawWidget->updateBalance(atm.checkBalance());
+    }
+}
 
 void MainWindow::handleChangePassword(){}
 

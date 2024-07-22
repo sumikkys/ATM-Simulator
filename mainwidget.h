@@ -23,6 +23,8 @@ signals:
     void checkBalanceButtonClicked();
     void quitButtonClicked();
     void toDepositButtonClicked();
+    void toWithdrawButtonClicked();
+    void toChangePWDButoonClicked();
 
 private:
     Ui::MainWidget *ui;
