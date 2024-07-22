@@ -23,6 +23,7 @@ DepositWidget::~DepositWidget()
     delete ui;
 }
 
+// 更新显示当前帐户余额
 void DepositWidget::updateBalance(unsigned int balance){
     ui->balanceLabel->setText(QString::number(balance/100)+"."+QString("%1").arg(balance%100, 2, 10, QChar('0')));
 }

@@ -134,7 +134,6 @@ void MainWindow::handleChangePassword(){
     std::vector<QString> pwds = changePasswordWidget->getUserInput();
     if(pwds[0].isEmpty() || pwds[1].isEmpty() || pwds[2].isEmpty()){
         QMessageBox::warning(this, "修改密码失败", "您输入的密码不能为空！");
-        changePasswordWidget->clearInformation();
     }else if(pwds[1] != pwds[2]){
         QMessageBox::warning(this, "修改密码失败", "您输入的两次新密码不一致！");
         changePasswordWidget->clearInformation();
@@ -147,7 +146,7 @@ void MainWindow::handleChangePassword(){
                    for(const QChar& ch : pwds[1]){
                        charSet.insert(ch);
                    }
-                   return charSet.size()== 1;
+                   return charSet.size() == 1;
                }()){ //检查新密码是否6位完全相同 通过将所有字符添加进集合 利用集合的互异性判断是否完全相同
         QMessageBox::warning(this, "修改密码失败", "密码6位不能完全相同！");
         changePasswordWidget->clearInformation();
