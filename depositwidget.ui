@@ -13,6 +13,21 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {
+    background-color: #7ac4ff; /* 背景颜色 */
+    border: none;              /* 去掉边框 */
+    color: white;              /* 文本颜色 */
+}
+
+QPushButton:hover {
+    background-color: #336699; /* 鼠标悬停时背景颜色 */
+}
+
+QLabel {
+color: #0082d6;
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="5,2,4,8">
@@ -109,6 +124,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>存款</string>
