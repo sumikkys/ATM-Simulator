@@ -1,6 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+
+/***********************************************
+ * ATM 前端处理模块
+ **********************************************/
+
+
 #include <QMainWindow>
 
 #include "atmsystem.h"

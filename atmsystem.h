@@ -1,5 +1,13 @@
 #ifndef ATMSYSTEM_H
 #define ATMSYSTEM_H
+
+
+/***********************************************
+ * ATM 后端系统
+ **********************************************/
+
+
+
 #include <QString>
 #include<account.h>
 #include <QFile>
@@ -9,10 +17,10 @@
 class AtmSystem
 {
 private:
-    Account account;
-    QSqlDatabase db;
+    Account account; // 当前登陆账号
+    QSqlDatabase db; // 数据库
 
-    // 哈希密码
+    // 哈希密码的方法
     QString hashPassword(const QString& password) const ;
 
 public:
@@ -22,7 +30,7 @@ public:
     // 初始化
     bool init();
 
-    // 登陆 登陆成功时返回true给LoginWidget::handleLogin函数 并创建account
+    // 登陆 登陆成功时返回true给MainWindow::handleLogin函数 并创建account
     bool login(const QString& cardNumber, const QString& password);
 
     // 获取卡号

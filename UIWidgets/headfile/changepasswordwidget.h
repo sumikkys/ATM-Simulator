@@ -1,6 +1,13 @@
 #ifndef CHANGEPASSWORDWIDGET_H
 #define CHANGEPASSWORDWIDGET_H
 
+
+/***********************************************
+ * 修改密码界面
+ **********************************************/
+
+
+
 #include <QWidget>
 
 namespace Ui {
@@ -15,12 +22,12 @@ public:
     explicit ChangePasswordWidget(QWidget *parent = nullptr);
     ~ChangePasswordWidget();
 
-    void clearInformation();
-    std::vector<QString> getUserInput() const;
+    void clearInformation(); // 清除已输入信息
+    std::vector<QString> getUserInput() const; // 获取用户输入的信息返回给MainWindow的处理函数
 
 signals:
-    void backButtonClicked();
-    void changePWDBtnClicked();
+    void backButtonClicked(); // 返回信号
+    void changePWDBtnClicked(); // 修改密码信号
 
 private:
     Ui::ChangePasswordWidget *ui;

@@ -1,3 +1,9 @@
+/**
+ * @file mainwindow.cpp
+ * @brief MainWindow 所有Widget的父窗口 包含前端大多数函数的实现
+ */
+
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "atmsystem.h"
@@ -11,6 +17,11 @@
 #include <QMessageBox>
 #include <QString>
 #include <QSet>
+
+/**
+ * @brief MainWindow::MainWindow 构造函数
+ * @param parent
+ */
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),ui(new Ui::MainWindow), loginWidget(new LoginWidget(this)),
     mainWidget(new MainWidget(this)), depositWidget(new DepositWidget(this))
@@ -112,12 +123,17 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
+/**
+ * @brief MainWindow::~MainWindow 析构函数
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-// 处理登陆的槽函数
+/**
+ * @brief MainWindow::handleLogin 处理登陆的槽函数
+ */
 void MainWindow::handleLogin(){
     QString cardNumber = loginWidget->getCardNumber();
     QString password = loginWidget->getPassword();
@@ -133,7 +149,9 @@ void MainWindow::handleLogin(){
     }
 }
 
-// 处理存款的槽函数
+/**
+ * @brief MainWindow::handleDeposit 处理存款的槽函数
+ */
 void MainWindow::handleDeposit(){
     QString line = depositWidget->getDepositAmount();
     if(line.isEmpty()){ // 检验是否为空
@@ -147,7 +165,7 @@ void MainWindow::handleDeposit(){
         QMessageBox::information(this, "存款成功", "您已存款"+line+" 元。");
         depositWidget->updateBalance(atm.checkBalance());
 
-    }else{
+    }else{ // 不带.的情况
         unsigned int finalAmount = line.toUInt()*100;
         atm.deposit(finalAmount);
         QMessageBox::information(this, "存款成功", "您已存款"+line+" 元。");
@@ -156,7 +174,9 @@ void MainWindow::handleDeposit(){
 
 }
 
-// 处理取款的槽函数
+/**
+ * @brief MainWindow::handleWithdraw 处理取款的槽函数
+ */
 void MainWindow::handleWithdraw(){
     QString line = withdrawWidget->getWithdrawAmount();
     unsigned int finalAmount = line.toUInt()*100;
@@ -169,15 +189,17 @@ void MainWindow::handleWithdraw(){
     }
 }
 
-// 处理修改密码的槽函数
+/**
+ * @brief MainWindow::handleChangePassword 处理修改密码的槽函数
+ */
 void MainWindow::handleChangePassword(){
     std::vector<QString> pwds = changePasswordWidget->getUserInput();
-    if(pwds[0].isEmpty() || pwds[1].isEmpty() || pwds[2].isEmpty()){
+    if(pwds[0].isEmpty() || pwds[1].isEmpty() || pwds[2].isEmpty()){ // 检验是否为空
         QMessageBox::warning(this, "修改密码失败", "您输入的密码不能为空！");
-    }else if(pwds[1] != pwds[2]){
+    }else if(pwds[1] != pwds[2]){ // 校验输入的两次新密码一致
         QMessageBox::warning(this, "修改密码失败", "您输入的两次新密码不一致！");
         changePasswordWidget->clearInformation();
-    }else if(pwds[1].size() < 6){
+    }else if(pwds[1].size() < 6){ // 校验输入的新密码必须为6位
         QMessageBox::warning(this, "修改密码失败", "您输入的新密码必须为6位！");
         changePasswordWidget->clearInformation();
 
@@ -204,15 +226,17 @@ void MainWindow::handleChangePassword(){
 
 }
 
-// 处理开卡的槽函数
+/**
+ * @brief MainWindow::handleCreate 处理开卡的槽函数
+ */
 void MainWindow::handleCreate(){
     std::vector<QString> inputs = accountCreDesWidget->getUserInput();
-    if(inputs[0].isEmpty() || inputs[1].isEmpty() || inputs[2].isEmpty()){
+    if(inputs[0].isEmpty() || inputs[1].isEmpty() || inputs[2].isEmpty()){ // 检验是否为空
         QMessageBox::warning(this, "开卡失败", "您输入的卡号与密码不能为空！");
-    }else if(inputs[1] != inputs[2]){
+    }else if(inputs[1] != inputs[2]){ // 校验输入的两次密码一致
         QMessageBox::warning(this, "开卡失败", "您输入的两次密码不一致！");
         accountCreDesWidget->clearInformation();
-    }else if(inputs[1].size() < 6){
+    }else if(inputs[1].size() < 6){ // 校验输入的密码必须为6位
         QMessageBox::warning(this, "开卡失败", "您输入的密码必须为6位！");
         accountCreDesWidget->clearInformation();
 
@@ -238,15 +262,17 @@ void MainWindow::handleCreate(){
     }
 }
 
-// 处理销户的槽函数
+/**
+ * @brief MainWindow::handleDestory 处理销户的槽函数
+ */
 void MainWindow::handleDestory(){
     std::vector<QString> inputs = accountCreDesWidget->getUserInput();
-    if(inputs[0].isEmpty() || inputs[1].isEmpty() || inputs[2].isEmpty()){
+    if(inputs[0].isEmpty() || inputs[1].isEmpty() || inputs[2].isEmpty()){ // 检验是否为空
         QMessageBox::warning(this, "销户失败", "您输入的卡号与密码不能为空！");
-    }else if(inputs[1] != inputs[2]){
+    }else if(inputs[1] != inputs[2]){ // 校验输入的两次密码一致
         QMessageBox::warning(this, "销户失败", "您输入的两次密码不一致！");
         accountCreDesWidget->clearInformation();
-    }else if(inputs[1].size() < 6){
+    }else if(inputs[1].size() < 6){ // 校验输入的密码必须为6位
         QMessageBox::warning(this, "销户失败", "您输入的密码必须为6位！");
         accountCreDesWidget->clearInformation();
 
@@ -256,25 +282,27 @@ void MainWindow::handleDestory(){
         loginWidget->clearInformation();
 
     }else{
-        QMessageBox::warning(this, "销户失败", "卡号不存在");
+        QMessageBox::warning(this, "销户失败", "卡号不存在或密码错误");
         accountCreDesWidget->clearInformation();
 
     }
 
 }
 
-// 处理转账的槽函数
+/**
+ * @brief MainWindow::handleTransfer 处理转账的槽函数
+ */
 void MainWindow::handleTransfer(){
     QString line = transferWidget->getTransferAmount();
     QString targetCard = transferWidget->getTargetCard();
-    if(line.isEmpty() || targetCard.isEmpty()){
+    if(line.isEmpty() || targetCard.isEmpty()){ // 检验是否为空
         QMessageBox::warning(this, "转账失败", "您输入的目标卡号与转账金额不能为空。");
     }else if(line.contains(".")){ //分开处理带.和不带.的情况
         unsigned int intPart = line.split(".").first().toUInt();
         unsigned int floatPart = line.split(".").last().toUInt();
         if(line.split(".").last().size()<2) floatPart *= 10; // 判断小数部分的位数
         unsigned int finalAmount = intPart*100+floatPart;
-        if(finalAmount > atm.checkBalance()){
+        if(finalAmount > atm.checkBalance()){  // 避免透支
             QMessageBox::warning(this, "转账失败", "您的账户余额不足");
         }else{
             if(atm.transfer(targetCard, finalAmount)){
@@ -285,9 +313,9 @@ void MainWindow::handleTransfer(){
 
             }
         }
-    }else{
+    }else{ // 不带.的情况
         unsigned int finalAmount = line.toUInt()*100;
-        if(finalAmount > atm.checkBalance()){
+        if(finalAmount > atm.checkBalance()){ // 避免透支
             QMessageBox::warning(this, "转账失败", "您的账户余额不足");
         }else{
             if(atm.transfer(targetCard, finalAmount)){

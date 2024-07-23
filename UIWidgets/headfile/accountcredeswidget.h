@@ -1,6 +1,11 @@
 #ifndef ACCOUNTCREDESWIDGET_H
 #define ACCOUNTCREDESWIDGET_H
 
+
+/***********************************************
+ * 开卡/销户界面
+ **********************************************/
+
 #include <QWidget>
 
 namespace Ui {
@@ -15,14 +20,14 @@ public:
     explicit AccountCreDesWidget(QWidget *parent = nullptr);
     ~AccountCreDesWidget();
 
-    void clearInformation();
-    std::vector<QString> getUserInput() const;
+    void clearInformation(); // 清除已输入信息
+    std::vector<QString> getUserInput() const; // 获取用户输入的信息返回给MainWindow的处理函数
 
 
 signals:
-    void backButtonClicked();
-    void destoryButtonClicked();
-    void createButtonClicked();
+    void backButtonClicked(); // 返回信号
+    void destoryButtonClicked(); // 销户信号
+    void createButtonClicked(); // 开卡信号
 
 private:
     Ui::AccountCreDesWidget *ui;

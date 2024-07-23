@@ -1,6 +1,15 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
+
+
+/***********************************************
+ * 主界面
+ **********************************************/
+
+
+
+
 #include <QWidget>
 
 namespace Ui {
@@ -23,12 +32,12 @@ public:
 
 
 signals:
-    void checkBalanceButtonClicked();
-    void quitButtonClicked();
-    void toDepositButtonClicked();
-    void toWithdrawButtonClicked();
-    void toTransferButtonClicked();
-    void toChangePWDButoonClicked();
+    void checkBalanceButtonClicked(); // 查询余额信号
+    void quitButtonClicked(); // 退出登陆信号
+    void toDepositButtonClicked(); // 前往存款界面信号
+    void toWithdrawButtonClicked(); // 前往取款界面信号
+    void toTransferButtonClicked(); // 前往转账界面信号
+    void toChangePWDButoonClicked(); // 前往修改密码信号
 
 private:
     Ui::MainWidget *ui;

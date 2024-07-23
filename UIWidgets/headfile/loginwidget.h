@@ -1,6 +1,13 @@
 #ifndef LOGINWIDGET_H
 #define LOGINWIDGET_H
 
+
+/***********************************************
+ * 登陆界面
+ **********************************************/
+
+
+
 #include <QWidget>
 
 namespace Ui {

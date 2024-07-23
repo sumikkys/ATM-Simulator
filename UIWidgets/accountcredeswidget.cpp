@@ -1,7 +1,19 @@
+/**
+ * @file accountcredeswidget.cpp
+ * @brief 开卡/销户界面的实现
+ */
+
 #include "headfile/accountcredeswidget.h"
 #include "ui_accountcredeswidget.h"
 #include <QRegularExpressionValidator>
 
+
+/**
+ * @brief 构造函数，初始化开卡销户界面
+ *
+ * @param parent 父Widget指针
+ *
+ */
 AccountCreDesWidget::AccountCreDesWidget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::AccountCreDesWidget)
@@ -26,18 +38,28 @@ AccountCreDesWidget::AccountCreDesWidget(QWidget *parent)
     ui->numberLine->setValidator(numberValidator);
 
 }
-
+/**
+ * @brief 析构函数
+ */
 AccountCreDesWidget::~AccountCreDesWidget()
 {
     delete ui;
 }
 
+/**
+ * @brief 清除用户已输入的信息，便于下次输入
+ */
 void AccountCreDesWidget::clearInformation(){
     ui->numberLine->clear();
     ui->confirmPwdLine->clear();
     ui->passwordLine->clear();
 }
 
+/**
+ * @brief 获取用户在图形界面的输入，返回给MainWindow的处理函数
+ *
+ * @return 含有卡号、密码、确认密码的vector<QString>容器
+ */
 std::vector<QString> AccountCreDesWidget::getUserInput() const{
     std::vector<QString> userInput;
     userInput.push_back(ui->numberLine->text());

@@ -1,9 +1,21 @@
+/**
+ * @file loginwidget.cpp
+ * @brief 登陆界面的实现
+ */
+
+
 #include "headfile/loginwidget.h"
 #include "ui_loginwidget.h"
-
 #include <QMessageBox>
 #include <QIntValidator>
 
+
+/**
+ * @brief 构造函数，初始化登陆界面
+ *
+ * @param parent 父Widget指针
+ *
+ */
 LoginWidget::LoginWidget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::LoginWidget)
@@ -26,22 +38,37 @@ LoginWidget::LoginWidget(QWidget *parent)
 
 }
 
+/**
+ * @brief 析构函数
+ */
 LoginWidget::~LoginWidget()
 {
     delete ui;
 }
 
+/**
+ * @brief 获取用户在图形界面的输入，返回给MainWindow的处理函数
+ *
+ * @return 返回用户输入的卡号的QString
+ */
 QString LoginWidget::getCardNumber() const{
     QString cardNumber = ui->numberLine->text();
     return cardNumber;
 }
 
+/**
+ * @brief 获取用户在图形界面的输入，返回给MainWindow的处理函数
+ *
+ * @return 返回用户输入的密码的QString
+ */
 QString LoginWidget::getPassword() const{
     QString password = ui->passwordLine->text();
     return password;
 }
 
-// 用户退出登录后清除登陆信息
+/**
+ * @brief 清除用户已输入的信息，便于下次登陆时输入新信息
+ */
 void LoginWidget::clearInformation(){
     ui->numberLine->clear();
     ui->passwordLine->clear();

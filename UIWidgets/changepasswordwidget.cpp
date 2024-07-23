@@ -1,6 +1,19 @@
+/**
+ * @file changepasswordwidget.cpp
+ * @brief 修改密码界面的实现
+ */
+
+
 #include "headfile/changepasswordwidget.h"
 #include "ui_changepasswordwidget.h"
 #include <QRegularExpressionValidator>
+
+/**
+ * @brief 构造函数，初始化修改密码界面
+ *
+ * @param parent 父Widget指针
+ *
+ */
 
 ChangePasswordWidget::ChangePasswordWidget(QWidget *parent)
     : QWidget(parent)
@@ -22,11 +35,17 @@ ChangePasswordWidget::ChangePasswordWidget(QWidget *parent)
 
 }
 
+/**
+ * @brief 析构函数
+ */
 ChangePasswordWidget::~ChangePasswordWidget()
 {
     delete ui;
 }
 
+/**
+ * @brief 清除用户已输入的信息，便于下次输入
+ */
 void ChangePasswordWidget::clearInformation(){
     ui->oldPassword->clear();
     ui->newPassword->clear();
@@ -34,6 +53,11 @@ void ChangePasswordWidget::clearInformation(){
 
 }
 
+/**
+ * @brief 获取用户在图形界面的输入，返回给MainWindow的处理函数
+ *
+ * @return 含有旧密码、新密码、确认新密码的vector<QString>容器
+ */
 std::vector<QString> ChangePasswordWidget::getUserInput() const{
     std::vector<QString> pwds;
     pwds.push_back(ui->oldPassword->text());

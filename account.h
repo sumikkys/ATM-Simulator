@@ -1,6 +1,14 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
+
+
+/***********************************************
+ * 账户类
+ **********************************************/
+
+
+
 #include<QString>
 #include<QCryptographicHash>
 
@@ -17,7 +25,6 @@ private:
 public:
     // 构造函数
     Account();
-
     Account(int id, const QString& m_number, const QString& m_password, unsigned int m_balance);
 
     // 获取Id
