@@ -264,16 +264,39 @@ void MainWindow::handleDestory(){
 }
 
 void MainWindow::handleTransfer(){
-    unsigned int amount = transferWidget->getTransferAmount().toUInt();
+    QString line = transferWidget->getTransferAmount();
     QString targetCard = transferWidget->getTargetCard();
-    if(amount > atm.checkBalance()){
-        QMessageBox::warning(this, "转账失败", "您的帐户余额不足。");
-    }else if(atm.transfer(targetCard , amount)){
-        QMessageBox::information(this, "转账成功", "您已成功转账");
-        transferWidget->updateBalance(atm.checkBalance());
-    }else{
-        QMessageBox::warning(this, "转账失败", "您输入的卡号不存在。");
+    if(line.isEmpty() || targetCard.isEmpty()){
+        QMessageBox::warning(this, "转账失败", "您输入的目标卡号与转账金额不能为空。");
+    }else if(line.contains(".")){ //分开处理带.和不带.的情况
+        unsigned int intPart = line.split(".").first().toUInt();
+        unsigned int floatPart = line.split(".").last().toUInt();
+        if(line.split(".").last().size()<2) floatPart *= 10; // 判断小数部分的位数
+        unsigned int finalAmount = intPart*100+floatPart;
+        if(finalAmount > atm.checkBalance()){
+            QMessageBox::warning(this, "转账失败", "您的账户余额不足");
+        }else{
+            if(atm.transfer(targetCard, finalAmount)){
+                QMessageBox::information(this, "转账成功", "您已转账"+line+" 元给卡号 "+targetCard+"的账户");
+                transferWidget->updateBalance(atm.checkBalance());
+            }else{
+                QMessageBox::warning(this, "转账失败", "您输入的卡号不存在");
 
+            }
+        }
+    }else{
+        unsigned int finalAmount = line.toUInt()*100;
+        if(finalAmount > atm.checkBalance()){
+            QMessageBox::warning(this, "转账失败", "您的账户余额不足");
+        }else{
+            if(atm.transfer(targetCard, finalAmount)){
+                QMessageBox::information(this, "转账成功", "您已转账"+line+" 元给卡号 "+targetCard+"的账户");
+                transferWidget->updateBalance(atm.checkBalance());
+            }else{
+                QMessageBox::warning(this, "转账失败", "您输入的卡号不存在");
+
+            }
+        }
     }
 }
 

@@ -13,6 +13,7 @@ MainWidget::MainWidget(QWidget *parent)
     connect(ui->toDepositButton, &QPushButton::clicked, this, &MainWidget::toDepositButtonClicked);
     connect(ui->toWithdrawButton, &QPushButton::clicked, this, &MainWidget::toWithdrawButtonClicked);
     connect(ui->toChangePasswordButton, &QPushButton::clicked, this, &MainWidget::toChangePWDButoonClicked);
+    connect(ui->toTransferButton, &QPushButton::clicked, this , &MainWidget::toTransferButtonClicked);
 }
 
 MainWidget::~MainWidget()
