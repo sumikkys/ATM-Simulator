@@ -1,9 +1,9 @@
 #include "account.h"
 
-Account::Account() : cardNumber(),password(),balance(){}
+Account::Account() : id(),cardNumber(),password(),balance(){}
 
-Account::Account(const QString& m_number, const QString& m_password, unsigned int m_balance)
-    : cardNumber(m_number), password(m_password), balance(m_balance){}
+Account::Account(int m_id, const QString& m_number, const QString& m_password, unsigned int m_balance)
+    : id(m_id),cardNumber(m_number), password(m_password), balance(m_balance){}
 
 // 哈希密码
 QString Account::hashPassword(const QString& password) const {
@@ -27,6 +27,14 @@ void Account::setAccount(const QString& m_number, const QString& m_password, uns
     balance = m_balance;
 }
 
+void Account::setId(int m_id){
+    id = m_id;
+}
+
+// 返回id
+int Account::getId() const{
+    return id;
+}
 
 // 返回卡号
 QString Account::getCardNumber() const{

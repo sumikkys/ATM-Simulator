@@ -17,6 +17,7 @@ public:
 
     // 在转账界面更新账户余额
     void updateBalance(unsigned int balance);
+    void clearInformation();
 
     QString getTransferAmount() const;
     QString getTargetCard() const;

@@ -19,13 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    if(!QFile::exists("./data.txt")){ // data.txt不存在时设置初始账号
-        if(atm.recoverDefaultAccount()){
-            QMessageBox::information(this, "恢复默认", "已恢复默认账号");
-        }
-    }
-
-
     if(!atm.init()){ // 初始化atm系统
         QMessageBox::warning(this, "错误", "初始化读取文件时出错");
         QApplication::quit();
@@ -83,6 +76,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(mainWidget, &MainWidget::toTransferButtonClicked, this, [this](){
         ui->stackedWidget->setCurrentWidget(transferWidget);
         transferWidget->updateBalance(atm.checkBalance());
+        transferWidget->clearInformation();
     });
     // lambda表达式处理前往修改密码界面信号
     connect(mainWidget, &MainWidget::toChangePWDButoonClicked, this , [this](){
