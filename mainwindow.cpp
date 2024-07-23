@@ -131,6 +131,7 @@ void MainWindow::handleLogin(){
         QMessageBox::warning(this, "登陆失败", "卡号或密码不能为空！");
     }else if(atm.login(cardNumber,password)){
         QMessageBox::information(this, "登陆成功", "您已成功登陆！");
+        mainWidget->hideBalance();
         ui->stackedWidget->setCurrentWidget(mainWidget);
     }else{
         QMessageBox::warning(this, "登陆失败", "卡号或密码错误！");

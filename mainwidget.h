@@ -18,6 +18,9 @@ public:
     // 显示所查询的余额
     void showBalance(unsigned int m_balance);
 
+    // 隐藏余额
+    void hideBalance();
+
 
 signals:
     void checkBalanceButtonClicked();

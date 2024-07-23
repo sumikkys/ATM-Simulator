@@ -25,3 +25,7 @@ void MainWidget::showBalance(unsigned int m_balance){
     // 通过格式化将unsigned int的balance显示为小数且小数部分始终保持两位
     ui->balanceLabel->setText(QString::number(m_balance/100)+"."+QString("%1").arg(m_balance%100, 2, 10, QChar('0'))+ " 元");
 }
+
+void MainWidget::hideBalance(){
+    ui->balanceLabel->setText("---");
+}
