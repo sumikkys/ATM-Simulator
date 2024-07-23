@@ -9,11 +9,8 @@
 class AtmSystem
 {
 private:
-    std::vector<Account> accounts;
+    Account account;
     QSqlDatabase db;
-
-    int loginedId;
-    int vectorIndex;
 public:
     // 构造函数
     AtmSystem();
