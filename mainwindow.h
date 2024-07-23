@@ -4,13 +4,13 @@
 #include <QMainWindow>
 
 #include "atmsystem.h"
-#include "loginwidget.h"
-#include "mainwidget.h"
-#include "depositwidget.h"
-#include "withdrawwidget.h"
-#include "changepasswordwidget.h"
-#include "accountcredeswidget.h"
-#include "transferwidget.h"
+#include "UIWidgets/headfile/loginwidget.h"
+#include "UIWidgets/headfile/mainwidget.h"
+#include "UIWidgets/headfile/depositwidget.h"
+#include "UIWidgets/headfile/withdrawwidget.h"
+#include "UIWidgets/headfile/changepasswordwidget.h"
+#include "UIWidgets/headfile/accountcredeswidget.h"
+#include "UIWidgets/headfile/transferwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

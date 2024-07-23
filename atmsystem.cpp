@@ -1,7 +1,7 @@
 #include "atmsystem.h"
 #include "account.h"
 
-AtmSystem::AtmSystem() : accounts(),index(0){}
+AtmSystem::AtmSystem() : accounts(), db(), index(0){}
 
 // 设置初始账号
 bool AtmSystem::recoverDefaultAccount(){

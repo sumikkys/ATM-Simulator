@@ -4,22 +4,24 @@
 #include<account.h>
 #include <QFile>
 #include <QMessageBox>
+#include <QtSql>
 
 class AtmSystem
 {
 private:
     std::vector<Account> accounts;
+    QSqlDatabase db;
 
     int index;
 public:
     // 构造函数
     AtmSystem();
 
-    // 设置初始账号便于调试
-    bool recoverDefaultAccount();
-
     // 初始化
     bool init();
+
+    // 设置初始账号便于调试
+    bool recoverDefaultAccount();
 
     // 登陆 登陆成功时返回true给LoginWidget::handleLogin函数 并创建account
     bool login(const QString& cardNumber, const QString& password);
