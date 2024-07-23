@@ -133,6 +133,7 @@ void MainWindow::handleLogin(){
     }
 }
 
+// 处理存款的槽函数
 void MainWindow::handleDeposit(){
     QString line = depositWidget->getDepositAmount();
     if(line.isEmpty()){ // 检验是否为空
@@ -155,6 +156,7 @@ void MainWindow::handleDeposit(){
 
 }
 
+// 处理取款的槽函数
 void MainWindow::handleWithdraw(){
     QString line = withdrawWidget->getWithdrawAmount();
     unsigned int finalAmount = line.toUInt()*100;
@@ -167,6 +169,7 @@ void MainWindow::handleWithdraw(){
     }
 }
 
+// 处理修改密码的槽函数
 void MainWindow::handleChangePassword(){
     std::vector<QString> pwds = changePasswordWidget->getUserInput();
     if(pwds[0].isEmpty() || pwds[1].isEmpty() || pwds[2].isEmpty()){
@@ -201,6 +204,7 @@ void MainWindow::handleChangePassword(){
 
 }
 
+// 处理开卡的槽函数
 void MainWindow::handleCreate(){
     std::vector<QString> inputs = accountCreDesWidget->getUserInput();
     if(inputs[0].isEmpty() || inputs[1].isEmpty() || inputs[2].isEmpty()){
@@ -234,6 +238,7 @@ void MainWindow::handleCreate(){
     }
 }
 
+// 处理销户的槽函数
 void MainWindow::handleDestory(){
     std::vector<QString> inputs = accountCreDesWidget->getUserInput();
     if(inputs[0].isEmpty() || inputs[1].isEmpty() || inputs[2].isEmpty()){
@@ -258,6 +263,7 @@ void MainWindow::handleDestory(){
 
 }
 
+// 处理转账的槽函数
 void MainWindow::handleTransfer(){
     QString line = transferWidget->getTransferAmount();
     QString targetCard = transferWidget->getTargetCard();

@@ -11,6 +11,10 @@ class AtmSystem
 private:
     Account account;
     QSqlDatabase db;
+
+    // 哈希密码
+    QString hashPassword(const QString& password) const ;
+
 public:
     // 构造函数
     AtmSystem();
@@ -25,7 +29,7 @@ public:
     QString checkCardNumber() const;
 
     // 查询余额
-    unsigned int checkBalance() const;
+    unsigned int checkBalance();
 
     // 取款
     bool withdraw(unsigned int amount);

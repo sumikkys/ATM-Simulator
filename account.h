@@ -9,7 +9,7 @@ class Account
 private:
     int id;
     QString cardNumber; // 卡号
-    QString password; // 密码，哈希后存储
+    QString password; // 哈希后密码
     unsigned int balance; // 余额 数值10000表示为100.00元 以int形式存储保证准确性
 
     QString hashPassword(const QString& password) const ;// 哈希密码的方法
@@ -20,14 +20,6 @@ public:
 
     Account(int id, const QString& m_number, const QString& m_password, unsigned int m_balance);
 
-    bool login(const QString& m_number, const QString& m_password) const;
-
-    // 设定账户
-    void setAccount(const QString& m_number, const QString& m_password, unsigned int m_balance);
-
-    // 设定卡号
-    void setId(int m_id);
-
     // 获取Id
     int getId() const;
 
@@ -37,11 +29,14 @@ public:
     // 获取余额
     unsigned int getBalance() const;
 
-    // 获取哈希后的密码
-    QString getPassword() const;
-
     // 验证密码
     bool validatePassword(const QString& m_password) const;
+
+    // 设定id
+    void setId(int m_id);
+
+    // 设定余额
+    void setBalance(unsigned int m_balance);
 
     // 取款
     void withdraw(unsigned int amount);

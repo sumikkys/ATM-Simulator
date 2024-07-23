@@ -12,25 +12,6 @@ QString Account::hashPassword(const QString& password) const {
 }
 
 
-// 登陆
-bool Account::login(const QString& m_number, const QString& m_password) const{
-    if(m_number == cardNumber && hashPassword(m_password) == password){
-        return true;
-    }else{
-        return false;
-    }
-}
-
-void Account::setAccount(const QString& m_number, const QString& m_password, unsigned int m_balance){
-    cardNumber = m_number;
-    password = hashPassword(m_password);
-    balance = m_balance;
-}
-
-void Account::setId(int m_id){
-    id = m_id;
-}
-
 // 返回id
 int Account::getId() const{
     return id;
@@ -46,16 +27,23 @@ unsigned int Account::getBalance() const{
     return balance;
 }
 
-// 获取哈希后的密码
-QString Account::getPassword() const{
-    return password;
-}
 
 // 验证密码
 bool Account::validatePassword(const QString& m_password) const{
     if(hashPassword(m_password) == password){
         return true;
     }else{ return false;}
+}
+
+
+// 设置id
+void Account::setId(int m_id){
+    id = m_id;
+}
+
+// 设定余额
+void Account::setBalance(unsigned int m_balance){
+    balance = m_balance;
 }
 
 // 存款

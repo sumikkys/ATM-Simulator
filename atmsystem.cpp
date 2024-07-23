@@ -21,16 +21,13 @@ bool AtmSystem::init(){
                "balance INTEGER NOT NULL CHECK (balance >= 0)"
                ");");
 
-    Account a;
-    a.setAccount("123456","123456",1000000);
-
     query.exec("SELECT * FROM Accounts WHERE card_number = '123456'");
     if(!query.next()){
         query.prepare("INSERT INTO Accounts (card_number, hashed_password, balance) "
                       "VALUES (?, ?, ?)");
-        query.addBindValue(a.getCardNumber());
-        query.addBindValue(a.getPassword());
-        query.addBindValue(a.getBalance());
+        query.addBindValue("123456");
+        query.addBindValue(hashPassword("123456"));
+        query.addBindValue(1000000);
         query.exec();
     }
         return true;
@@ -40,8 +37,9 @@ bool AtmSystem::init(){
 // 登陆
 bool AtmSystem::login(const QString& cardNumber, const QString& password){
     QSqlQuery query;
-    query.prepare("SELECT * FROM Accounts WHERE card_number = ?");
+    query.prepare("SELECT * FROM Accounts WHERE card_number = ? AND hashed_password = ?");
     query.addBindValue(cardNumber);
+    query.addBindValue(hashPassword(password));
     query.exec();
     if(!query.next()){
         return false;
@@ -49,14 +47,9 @@ bool AtmSystem::login(const QString& cardNumber, const QString& password){
         Account a(query.value(0).toInt(),
                   query.value(1).toString(),
                   query.value(2).toString(),
-                  query.value(3).toUInt()
-            );
-        if(a.login(cardNumber,password)){
-            account = a;
-            return true;
-        }else{
-            return false;
-        }
+                  query.value(3).toUInt());
+        account = a;
+        return true;
     }
 }
 
@@ -66,17 +59,25 @@ QString AtmSystem::checkCardNumber() const{
 }
 
 // 返回余额
-unsigned int AtmSystem::checkBalance() const{
-    return account.getBalance();
+unsigned int AtmSystem::checkBalance(){
+    QSqlQuery query;
+    query.prepare("SELECT balance FROM Accounts WHERE card_number = ?");
+    query.addBindValue(account.getCardNumber());
+    query.exec();
+    query.next();
+    unsigned int dataBalance = query.value(0).toUInt();
+    if(dataBalance == account.getBalance()){
+        return account.getBalance();
+    }else{
+        account.setBalance(dataBalance);
+        return dataBalance;
+    }
 }
 
 // 存款
 bool AtmSystem::deposit(unsigned int amount){
-
-
     QSqlQuery query;
     db.transaction();
-
     query.prepare("UPDATE Accounts SET balance = balance + ? WHERE account_id = ?");
     query.addBindValue(amount);
     query.addBindValue(account.getId());
@@ -150,7 +151,7 @@ bool AtmSystem::changePassword(const QString& oldPassword, const QString& newPas
         db.transaction();
 
         query.prepare("UPDATE Accounts SET hashed_password = ? WHERE account_id = ?");
-        query.addBindValue(account.getPassword());
+        query.addBindValue(hashPassword(newPassword));
         query.addBindValue(account.getId());
         if (query.exec()){
             db.commit();
@@ -166,6 +167,7 @@ bool AtmSystem::changePassword(const QString& oldPassword, const QString& newPas
     }
 }
 
+// 开卡
 bool AtmSystem::createCard(const QString& cardNumber, const QString& password){
     QSqlQuery query;
     query.prepare("SELECT * FROM Accounts WHERE card_number = ?");
@@ -174,17 +176,13 @@ bool AtmSystem::createCard(const QString& cardNumber, const QString& password){
         return false;
     }
 
-    Account a;
-    a.setAccount(cardNumber,password,0);
-
-
     db.transaction();
 
     query.prepare("INSERT INTO Accounts (card_number, hashed_password, balance) "
                   "VALUES (?, ?, ?)");
-    query.addBindValue(a.getCardNumber());
-    query.addBindValue(a.getPassword());
-    query.addBindValue(a.getBalance());
+    query.addBindValue(cardNumber);
+    query.addBindValue(hashPassword(password));
+    query.addBindValue(0);
     if (query.exec()){
         db.commit();
         return true;
@@ -195,37 +193,27 @@ bool AtmSystem::createCard(const QString& cardNumber, const QString& password){
     }
 }
 
+// 销户
 bool AtmSystem::destroyAccount(const QString& cardNumber, const QString& password){
 
     QSqlQuery query;
 
-    query.prepare("SELECT * FROM Accounts WHERE card_number = ?");
+    db.transaction();
+    query.prepare("DELETE FROM Accounts WHERE card_number = ? AND hashed_password = ?");
     query.addBindValue(cardNumber);
-    query.exec();
-    if(query.next()){
-        Account a(query.value(0).toInt(),
-                  query.value(1).toString(),
-                  query.value(2).toString(),
-                  query.value(3).toUInt());
-        if(a.validatePassword(password)){
-            db.transaction();
-            query.prepare("DELETE FROM Accounts WHERE card_number = ?");
-            query.addBindValue(cardNumber);
+    query.addBindValue(hashPassword(password));
 
-            if(query.exec()){
-                db.commit();
-                return true;
-            }else{
-                db.rollback();
-                return false;
-            }
-            return false;
-        }else{
-            return false;
-        }
+    if(query.exec() && query.numRowsAffected()!=0){
+        db.commit();
+        return true;
     }else{
+        db.rollback();
         return false;
     }
+}
 
-
+// 哈希密码
+QString AtmSystem::hashPassword(const QString& password) const {
+    QByteArray byteArray = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
+    return QString(byteArray.toHex());
 }
