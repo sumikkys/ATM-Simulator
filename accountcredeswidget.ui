@@ -24,7 +24,7 @@ QPushButton:hover {
     background-color: #336699; /* 鼠标悬停时背景颜色 */
 }</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,1">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,1">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
      <item>
@@ -90,10 +90,7 @@ color: #0082d6;
      </item>
      <item>
       <widget class="QLineEdit" name="passwordLine">
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="inputMask">
+       <property name="text">
         <string/>
        </property>
        <property name="echoMode">
@@ -101,6 +98,25 @@ color: #0082d6;
        </property>
        <property name="placeholderText">
         <string>密码</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="confirmPwdLine">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+       <property name="placeholderText">
+        <string>确认密码</string>
        </property>
       </widget>
      </item>

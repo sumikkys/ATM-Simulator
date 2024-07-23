@@ -18,7 +18,7 @@ public:
     // 在取款界面更新账户余额
     void updateBalance(unsigned int balance);
 
-    QString getWithdrawAmount();
+    QString getWithdrawAmount() const;
 
 signals:
     void backButtonClicked();

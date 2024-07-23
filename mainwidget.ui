@@ -73,7 +73,7 @@ color: #0082d6;
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,7,3">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,6,5,5">
      <property name="leftMargin">
       <number>12</number>
      </property>
@@ -104,6 +104,19 @@ color: #0082d6;
        </property>
        <property name="text">
         <string>查询余额</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>    转账    </string>
        </property>
       </widget>
      </item>

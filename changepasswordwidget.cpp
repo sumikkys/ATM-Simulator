@@ -34,7 +34,7 @@ void ChangePasswordWidget::clearInformation(){
 
 }
 
-std::vector<QString> ChangePasswordWidget::getUserInput(){
+std::vector<QString> ChangePasswordWidget::getUserInput() const{
     std::vector<QString> pwds;
     pwds.push_back(ui->oldPassword->text());
     pwds.push_back(ui->newPassword->text());

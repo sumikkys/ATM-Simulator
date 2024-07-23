@@ -16,8 +16,8 @@ public:
     ~LoginWidget();
 
     // 向外提供输入框中输入的卡号与密码
-    QString getCardNumber();
-    QString getPassword();
+    QString getCardNumber() const;
+    QString getPassword() const;
 
     // 用户退出登录后清除登陆信息
     void clearInformation();

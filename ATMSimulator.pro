@@ -18,6 +18,7 @@ SOURCES += \
     main.cpp \
     mainwidget.cpp \
     mainwindow.cpp \
+    transferwidget.cpp \
     withdrawwidget.cpp
 
 HEADERS += \
@@ -29,6 +30,7 @@ HEADERS += \
     loginwidget.h \
     mainwidget.h \
     mainwindow.h \
+    transferwidget.h \
     withdrawwidget.h
 
 FORMS += \
@@ -38,6 +40,7 @@ FORMS += \
     loginwidget.ui \
     mainwidget.ui \
     mainwindow.ui \
+    transferwidget.ui \
     withdrawwidget.ui
 
 # Default rules for deployment.

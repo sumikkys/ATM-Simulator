@@ -31,12 +31,12 @@ LoginWidget::~LoginWidget()
     delete ui;
 }
 
-QString LoginWidget::getCardNumber(){
+QString LoginWidget::getCardNumber() const{
     QString cardNumber = ui->numberLine->text();
     return cardNumber;
 }
 
-QString LoginWidget::getPassword(){
+QString LoginWidget::getPassword() const{
     QString password = ui->passwordLine->text();
     return password;
 }

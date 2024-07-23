@@ -25,10 +25,10 @@ public:
     bool login(const QString& cardNumber, const QString& password);
 
     // 获取卡号
-    QString checkCardNumber();
+    QString checkCardNumber() const;
 
     // 查询余额
-    unsigned int checkBalance();
+    unsigned int checkBalance() const;
 
     // 取款
     bool withdraw(unsigned int amount);
@@ -36,8 +36,17 @@ public:
     // 存款
     bool deposit(unsigned int amount);
 
+    // 转账
+    bool transfer(const QString& targetCard, unsigned int amount);
+
     // 修改密码
     bool changePassword(const QString& oldPassword, const QString& newPassword);
+
+    // 开卡
+    bool createCard(const QString& cardNumber, const QString& password);
+
+    // 销户
+    bool destroyAccount(const QString& cardNumber, const QString& password);
 };
 
 #endif // ATMSYSTEM_H

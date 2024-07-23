@@ -24,6 +24,7 @@ signals:
     void quitButtonClicked();
     void toDepositButtonClicked();
     void toWithdrawButtonClicked();
+    void toTransferButtonClicked();
     void toChangePWDButoonClicked();
 
 private:

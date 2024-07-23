@@ -43,6 +43,13 @@ QString Account::getPassword() const{
     return password;
 }
 
+// 验证密码
+bool Account::validatePassword(const QString& m_password) const{
+    if(hashPassword(m_password) == password){
+        return true;
+    }else{ return false;}
+}
+
 // 存款
 void Account::deposit(unsigned int amount){
     this->balance += amount;

@@ -33,6 +33,9 @@ public:
     // 获取哈希后的密码
     QString getPassword() const;
 
+    // 验证密码
+    bool validatePassword(const QString& m_password) const;
+
     // 取款
     void withdraw(unsigned int amount);
 

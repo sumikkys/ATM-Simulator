@@ -18,7 +18,7 @@ public:
     // 在存款界面更新账户余额
     void updateBalance(unsigned int balance);
 
-    QString getDepositAmount();
+    QString getDepositAmount() const;
 
 signals:
     void backButtonClicked();

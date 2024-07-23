@@ -28,6 +28,6 @@ void DepositWidget::updateBalance(unsigned int balance){
     ui->balanceLabel->setText(QString::number(balance/100)+"."+QString("%1").arg(balance%100, 2, 10, QChar('0')));
 }
 
-QString DepositWidget::getDepositAmount(){
+QString DepositWidget::getDepositAmount() const{
     return ui->amountLine->text();
 }

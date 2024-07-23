@@ -6,19 +6,22 @@
 #include "depositwidget.h"
 #include "withdrawwidget.h"
 #include "changepasswordwidget.h"
+#include "transferwidget.h"
+#include "accountcredeswidget.h"
 #include <QMessageBox>
 #include <QString>
 #include <QSet>
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),ui(new Ui::MainWindow),loginWidget(new LoginWidget(this)),
+    : QMainWindow(parent),ui(new Ui::MainWindow), loginWidget(new LoginWidget(this)),
     mainWidget(new MainWidget(this)), depositWidget(new DepositWidget(this))
-    ,withdrawWidget(new WithdrawWidget(this)), changePasswordWidget(new ChangePasswordWidget(this)), accountCreDesWidget(new AccountCreDesWidget(this)), atm()
+    , withdrawWidget(new WithdrawWidget(this)), changePasswordWidget(new ChangePasswordWidget(this))
+    , accountCreDesWidget(new AccountCreDesWidget(this)), transferWidget(new TransferWidget(this)), atm()
 {
     ui->setupUi(this);
 
     if(!QFile::exists("data.txt")){ // data.txt不存在时设置初始账号
         if(atm.recoverDefaultAccount()){
-            QMessageBox::warning(this, "恢复默认", "已恢复默认账号");
+            QMessageBox::information(this, "恢复默认", "已恢复默认账号");
         }
     }
 
@@ -35,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->addWidget(withdrawWidget);
     ui->stackedWidget->addWidget(changePasswordWidget);
     ui->stackedWidget->addWidget(accountCreDesWidget);
+    ui->stackedWidget->addWidget(transferWidget);
     ui->stackedWidget->setCurrentWidget(loginWidget);
 
 
@@ -53,6 +57,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(accountCreDesWidget, &AccountCreDesWidget::createButtonClicked, this, &MainWindow::handleCreate);
     // 连接销户信号与销户槽函数
     connect(accountCreDesWidget, &AccountCreDesWidget::destoryButtonClicked, this , &MainWindow::handleDestory);
+    // 连接转账信号与转账槽函数
+    connect(transferWidget, &TransferWidget::transferBtnClicked, this , &MainWindow::handleTransfer);
     // lambda表达式处理查询余额信号
     connect(mainWidget, &MainWidget::checkBalanceButtonClicked, this, [this](){
         mainWidget->showBalance(atm.checkBalance());
@@ -73,6 +79,11 @@ MainWindow::MainWindow(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(withdrawWidget);
         withdrawWidget->updateBalance(atm.checkBalance());
     });
+    // lambda表达式处理前往转账界面信号
+    connect(mainWidget, &MainWidget::toTransferButtonClicked, this, [this](){
+        ui->stackedWidget->setCurrentWidget(transferWidget);
+        transferWidget->updateBalance(atm.checkBalance());
+    });
     // lambda表达式处理前往修改密码界面信号
     connect(mainWidget, &MainWidget::toChangePWDButoonClicked, this , [this](){
         ui->stackedWidget->setCurrentWidget(changePasswordWidget);
@@ -92,13 +103,18 @@ MainWindow::MainWindow(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(mainWidget);
         mainWidget->showBalance(atm.checkBalance());
     });
+    connect(transferWidget, &TransferWidget::backButtonClicked, this, [this](){ // 转账界面返回
+        ui->stackedWidget->setCurrentWidget(mainWidget);
+        mainWidget->showBalance(atm.checkBalance());
+    } );
     connect(changePasswordWidget, &ChangePasswordWidget::backButtonClicked, this, [this](){ // 修改密码界面返回
         ui->stackedWidget->setCurrentWidget(mainWidget);
     } );
-    connect(accountCreDesWidget, &AccountCreDesWidget::backButtonClicked, this, [this](){ // 修改密码界面返回
+    connect(accountCreDesWidget, &AccountCreDesWidget::backButtonClicked, this, [this](){ // 开卡销户界面返回
         ui->stackedWidget->setCurrentWidget(loginWidget);
         loginWidget->clearInformation();
     } );
+
 
 }
 
@@ -191,10 +207,73 @@ void MainWindow::handleChangePassword(){
 }
 
 void MainWindow::handleCreate(){
+    std::vector<QString> inputs = accountCreDesWidget->getUserInput();
+    if(inputs[0].isEmpty() || inputs[1].isEmpty() || inputs[2].isEmpty()){
+        QMessageBox::warning(this, "开卡失败", "您输入的卡号与密码不能为空！");
+    }else if(inputs[1] != inputs[2]){
+        QMessageBox::warning(this, "开卡失败", "您输入的两次密码不一致！");
+        accountCreDesWidget->clearInformation();
+    }else if(inputs[1].size() < 6){
+        QMessageBox::warning(this, "开卡失败", "您输入的密码必须为6位！");
+        accountCreDesWidget->clearInformation();
 
+    }else if([inputs]() -> bool{
+                   QSet<QString> charSet;
+                   for(const QChar& ch : inputs[1]){
+                       charSet.insert(ch);
+                   }
+                   return charSet.size() == 1;
+               }()){ //检查新密码是否6位完全相同 通过将所有字符添加进集合 利用集合的互异性判断是否完全相同
+        QMessageBox::warning(this, "开卡失败", "密码6位不能完全相同！");
+        accountCreDesWidget->clearInformation();
+
+    }else if (atm.createCard(inputs[0],inputs[1])){
+        QMessageBox::information(this, "开卡成功", "您已成功开卡");
+        ui->stackedWidget->setCurrentWidget(loginWidget);
+        loginWidget->clearInformation();
+
+    }else{
+        QMessageBox::warning(this, "开卡失败", "卡号与已有卡号重复");
+        accountCreDesWidget->clearInformation();
+
+    }
 }
 
 void MainWindow::handleDestory(){
+    std::vector<QString> inputs = accountCreDesWidget->getUserInput();
+    if(inputs[0].isEmpty() || inputs[1].isEmpty() || inputs[2].isEmpty()){
+        QMessageBox::warning(this, "销户失败", "您输入的卡号与密码不能为空！");
+    }else if(inputs[1] != inputs[2]){
+        QMessageBox::warning(this, "销户失败", "您输入的两次密码不一致！");
+        accountCreDesWidget->clearInformation();
+    }else if(inputs[1].size() < 6){
+        QMessageBox::warning(this, "销户失败", "您输入的密码必须为6位！");
+        accountCreDesWidget->clearInformation();
 
+    }else if (atm.destroyAccount(inputs[0],inputs[1])){
+        QMessageBox::information(this, "销户成功", "您已成功销户");
+        ui->stackedWidget->setCurrentWidget(loginWidget);
+        loginWidget->clearInformation();
+
+    }else{
+        QMessageBox::warning(this, "销户失败", "卡号不存在");
+        accountCreDesWidget->clearInformation();
+
+    }
+
+}
+
+void MainWindow::handleTransfer(){
+    unsigned int amount = transferWidget->getTransferAmount().toUInt();
+    QString targetCard = transferWidget->getTargetCard();
+    if(amount > atm.checkBalance()){
+        QMessageBox::warning(this, "转账失败", "您的帐户余额不足。");
+    }else if(atm.transfer(targetCard , amount)){
+        QMessageBox::information(this, "转账成功", "您已成功转账");
+        transferWidget->updateBalance(atm.checkBalance());
+    }else{
+        QMessageBox::warning(this, "转账失败", "您输入的卡号不存在。");
+
+    }
 }
 

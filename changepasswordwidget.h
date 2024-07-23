@@ -16,7 +16,7 @@ public:
     ~ChangePasswordWidget();
 
     void clearInformation();
-    std::vector<QString> getUserInput();
+    std::vector<QString> getUserInput() const;
 
 signals:
     void backButtonClicked();
