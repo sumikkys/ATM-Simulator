@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 13.0.2, 2024-07-23T10:57:03. -->
+<!-- Written by QtCreator 13.0.2, 2024-07-23T12:44:10. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -92,7 +92,7 @@
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Qt 6.7.2 for macOS</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Qt 6.7.2 for macOS</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt6.672.clang_64_kit</value>
-   <value type="qlonglong" key="ProjectExplorer.Target.ActiveBuildConfiguration">1</value>
+   <value type="qlonglong" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="qlonglong" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="qlonglong" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
@@ -248,7 +248,7 @@
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/sumipeng/QtProjects/ATMSimulator/build/Qt_6_7_2_for_macOS-Release/ATMSimulator.app/Contents/MacOS</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/sumipeng/QtProjects/ATMSimulator/build/Qt_6_7_2_for_macOS-Debug/ATMSimulator.app/Contents/MacOS</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    if(!QFile::exists("data.txt")){ // data.txt不存在时设置初始账号
+    if(!QFile::exists("./data.txt")){ // data.txt不存在时设置初始账号
         if(atm.recoverDefaultAccount()){
             QMessageBox::information(this, "恢复默认", "已恢复默认账号");
         }

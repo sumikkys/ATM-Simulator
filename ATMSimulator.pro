@@ -10,38 +10,38 @@ CONFIG += c++17
 
 SOURCES += \
     account.cpp \
-    accountcredeswidget.cpp \
+    UIWidgets/accountcredeswidget.cpp \
     atmsystem.cpp \
-    changepasswordwidget.cpp \
-    depositwidget.cpp \
-    loginwidget.cpp \
+    UIWidgets/changepasswordwidget.cpp \
+    UIWidgets/depositwidget.cpp \
+    UIWidgets/loginwidget.cpp \
     main.cpp \
-    mainwidget.cpp \
+    UIWidgets/mainwidget.cpp \
     mainwindow.cpp \
-    transferwidget.cpp \
-    withdrawwidget.cpp
+    UIWidgets/transferwidget.cpp \
+    UIWidgets/withdrawwidget.cpp
 
 HEADERS += \
     account.h \
-    accountcredeswidget.h \
+    UIWidgets/headfile/accountcredeswidget.h \
     atmsystem.h \
-    changepasswordwidget.h \
-    depositwidget.h \
-    loginwidget.h \
-    mainwidget.h \
+    UIWidgets/headfile/changepasswordwidget.h \
+    UIWidgets/headfile/depositwidget.h \
+    UIWidgets/headfile/loginwidget.h \
+    UIWidgets/headfile/mainwidget.h \
     mainwindow.h \
-    transferwidget.h \
-    withdrawwidget.h
+    UIWidgets/headfile/transferwidget.h \
+    UIWidgets/headfile/withdrawwidget.h
 
 FORMS += \
-    accountcredeswidget.ui \
-    changepasswordwidget.ui \
-    depositwidget.ui \
-    loginwidget.ui \
-    mainwidget.ui \
+    UIWidgets/ui/accountcredeswidget.ui \
+    UIWidgets/ui/changepasswordwidget.ui \
+    UIWidgets/ui/depositwidget.ui \
+    UIWidgets/ui/loginwidget.ui \
+    UIWidgets/ui/mainwidget.ui \
     mainwindow.ui \
-    transferwidget.ui \
-    withdrawwidget.ui
+    UIWidgets/ui/transferwidget.ui \
+    UIWidgets/ui/withdrawwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

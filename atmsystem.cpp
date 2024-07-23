@@ -5,7 +5,7 @@ AtmSystem::AtmSystem() : accounts(),index(0){}
 
 // 设置初始账号
 bool AtmSystem::recoverDefaultAccount(){
-    QFile file("data.txt");
+    QFile file("./data.txt");
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)){
         return false;
     }
@@ -20,7 +20,7 @@ bool AtmSystem::recoverDefaultAccount(){
 
 // 初始化
 bool AtmSystem::init(){
-    QFile file("data.txt");
+    QFile file("./data.txt");
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         return false;
     }
@@ -65,7 +65,7 @@ unsigned int AtmSystem::checkBalance() const{
 // 存款
 bool AtmSystem::deposit(unsigned int amount){
     accounts[index].deposit(amount);
-    QFile file("data.txt");
+    QFile file("./data.txt");
 
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)){
         accounts[index].withdraw(amount);
@@ -84,7 +84,7 @@ bool AtmSystem::deposit(unsigned int amount){
 // 取款
 bool AtmSystem::withdraw(unsigned int amount){
     accounts[index].withdraw(amount);
-    QFile file("data.txt");
+    QFile file("./data.txt");
 
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)){
         accounts[index].deposit(amount);
@@ -108,7 +108,7 @@ bool AtmSystem::transfer(const QString& targetCard, unsigned int amount){
         if(account.getCardNumber() == targetCard){
             accounts[i].deposit(amount);
             accounts[index].withdraw(amount);
-            QFile file("data.txt");
+            QFile file("./data.txt");
 
             if(!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)){
                 accounts[i].withdraw(amount);
@@ -132,7 +132,7 @@ bool AtmSystem::transfer(const QString& targetCard, unsigned int amount){
 // 修改密码
 bool AtmSystem::changePassword(const QString& oldPassword, const QString& newPassword){
     if(accounts[index].changePassword(oldPassword,newPassword)){
-        QFile file("data.txt");
+        QFile file("./data.txt");
 
         if(!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)){
             accounts[index].changePassword(newPassword,oldPassword);
@@ -160,7 +160,7 @@ bool AtmSystem::createCard(const QString& cardNumber, const QString& password){
     Account a;
     a.setAccount(cardNumber,password,0);
     accounts.push_back(a);
-    QFile file("data.txt");
+    QFile file("./data.txt");
 
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)){
         accounts.pop_back();
@@ -182,7 +182,7 @@ bool AtmSystem::destroyAccount(const QString& cardNumber, const QString& passwor
         if(account.getCardNumber() == cardNumber && account.validatePassword(password)){
             unsigned int balance = account.getBalance();
             accounts.erase(accounts.begin()+i);
-            QFile file("data.txt");
+            QFile file("./data.txt");
 
             if(!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)){
                 Account a;
