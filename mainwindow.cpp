@@ -164,12 +164,14 @@ void MainWindow::handleDeposit(){
         atm.deposit(finalAmount);
         QMessageBox::information(this, "存款成功", "您已存款"+line+" 元。");
         depositWidget->updateBalance(atm.checkBalance());
+        depositWidget->clearInformation();
 
     }else{ // 不带.的情况
         unsigned int finalAmount = line.toUInt()*100;
         atm.deposit(finalAmount);
         QMessageBox::information(this, "存款成功", "您已存款"+line+" 元。");
         depositWidget->updateBalance(atm.checkBalance());
+        depositWidget->clearInformation();
     }
 
 }
