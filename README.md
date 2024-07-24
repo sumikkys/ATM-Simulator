@@ -85,6 +85,10 @@
 - TransferWidget: 转账模块
 - AccountCreDesWidget: 开卡/销户模块
 
+## 目录结构
+
+![directory](images/directories.png)
+
 ## 数据库结构
 
 数据库使用 SQLite 搭建，具体结构为：
