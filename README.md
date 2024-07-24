@@ -69,6 +69,22 @@
 
 ![credesWidget](images/credes.png)
 
+## 类结构
+
+![classDiagram](images/classDiagram.png)
+
+
+- AtmSystem: ATM 后端系统
+- MainWindow: ATM 前端处理模块
+- Account: 账户类
+- LoginWidget: 登陆模块
+- MainWidget: 主界面
+- DepositWidget: 存款模块
+- WithdrawWidget: 取款模块
+- ChangePasswordWidget: 修改密码模块
+- TransferWidget: 转账模块
+- AccountCreDesWidget: 开卡/销户模块
+
 ## 数据库结构
 
 数据库使用 SQLite 搭建，具体结构为：
