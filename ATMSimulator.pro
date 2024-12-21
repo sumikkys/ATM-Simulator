@@ -48,7 +48,12 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES +=
+DISTFILES += \
+    res.rc
 
 RESOURCES += \
     resources.qrc
+
+RC_FILE = res.rc
+
+ICON = favicon.ico

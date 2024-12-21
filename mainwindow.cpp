@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
         QApplication::quit();
     }
 
-    // 将各个Widget添加到stackedWidget
+    // 将各个Widget添加到stackedWidgett
     ui->stackedWidget->addWidget(loginWidget);
     ui->stackedWidget->addWidget(mainWidget);
     ui->stackedWidget->addWidget(depositWidget);
@@ -161,15 +161,21 @@ void MainWindow::handleDeposit(){
         unsigned int floatPart = line.split(".").last().toUInt();
         if(line.split(".").last().size()<2) floatPart *= 10; // 判断小数部分的位数
         unsigned int finalAmount = intPart*100+floatPart;
-        atm.deposit(finalAmount);
-        QMessageBox::information(this, "存款成功", "您已存款"+line+" 元。");
+        if(atm.deposit(finalAmount)){
+            QMessageBox::information(this, "存款成功", "您已存款"+line+" 元。");
+        }else{
+            QMessageBox::warning(this, "存款失败", "存款时发生错误");
+        }
         depositWidget->updateBalance(atm.checkBalance());
         depositWidget->clearInformation();
 
     }else{ // 不带.的情况
         unsigned int finalAmount = line.toUInt()*100;
-        atm.deposit(finalAmount);
-        QMessageBox::information(this, "存款成功", "您已存款"+line+" 元。");
+        if(atm.deposit(finalAmount)){
+            QMessageBox::information(this, "存款成功", "您已存款"+line+" 元。");
+        }else{
+            QMessageBox::warning(this, "存款失败", "存款时发生错误");
+        }
         depositWidget->updateBalance(atm.checkBalance());
         depositWidget->clearInformation();
     }
@@ -278,13 +284,15 @@ void MainWindow::handleDestory(){
         QMessageBox::warning(this, "销户失败", "您输入的密码必须为6位！");
         accountCreDesWidget->clearInformation();
 
+    }else if(!atm.checkAccount(inputs[0],inputs[1])){
+        QMessageBox::warning(this, "销户失败", "卡号或密码错误");
+        accountCreDesWidget->clearInformation();
     }else if (atm.destroyAccount(inputs[0],inputs[1])){
         QMessageBox::information(this, "销户成功", "您已成功销户");
         ui->stackedWidget->setCurrentWidget(loginWidget);
         loginWidget->clearInformation();
-
     }else{
-        QMessageBox::warning(this, "销户失败", "卡号不存在或密码错误");
+        QMessageBox::warning(this, "销户失败", "您卡内仍有余额，请取出后再销户");
         accountCreDesWidget->clearInformation();
 
     }

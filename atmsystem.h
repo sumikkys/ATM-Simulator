@@ -56,6 +56,9 @@ public:
 
     // 销户
     bool destroyAccount(const QString& cardNumber, const QString& password);
+
+    // 检查账户
+    bool checkAccount(const QString& cardNumber, const QString& password);
 };
 
 #endif // ATMSYSTEM_H
